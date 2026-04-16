@@ -222,4 +222,27 @@ input:focus {
   .button-row {
     flex-direction: column;
   }
+  /* Scale hints under inputs */
+.scale-hint {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.8rem;
+  margin-top: 5px;
+  color: #6c8ca3;
+}
+
+/* Visual scale bars */
+.scale-bar {
+  height: 6px;
+  border-radius: 5px;
+  margin-top: 6px;
+}
+
+.stress-bar {
+  background: linear-gradient(to right, #6bc5ff, #ff6b6b);
+}
+
+.mood-bar {
+  background: linear-gradient(to right, #ff6b6b, #6bc5ff);
+}
 }
