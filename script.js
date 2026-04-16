@@ -2,6 +2,7 @@ const burnoutForm = document.getElementById("burnoutForm");
 const scoreDisplay = document.getElementById("scoreDisplay");
 const riskLevel = document.getElementById("riskLevel");
 const riskMessage = document.getElementById("riskMessage");
+const resetBtn = document.getElementById("resetBtn");
 
 burnoutForm.addEventListener("submit", function (event) {
   event.preventDefault();
@@ -35,20 +36,32 @@ burnoutForm.addEventListener("submit", function (event) {
 
   if (score <= 2) {
     levelText = "Low Risk";
-    messageText = "Your current habits suggest a lower burnout risk, but continue tracking daily patterns.";
+    messageText =
+      "Your current habits suggest a lower burnout risk. Keep tracking your routine and maintaining balance.";
     riskClass = "low";
   } else if (score <= 5) {
     levelText = "Moderate Risk";
-    messageText = "Your entries show some warning signs of burnout. Consider improving sleep, stress management, or workload balance.";
+    messageText =
+      "Your entries show some warning signs of burnout. You may want to improve rest, manage stress, and balance your workload.";
     riskClass = "moderate";
   } else {
     levelText = "High Risk";
-    messageText = "Your current habits suggest a high burnout risk. It may help to reduce workload, rest more, and seek support if needed.";
+    messageText =
+      "Your current habits suggest a high burnout risk. Consider resting more, reducing overload, and reaching out for support if needed.";
     riskClass = "high";
   }
 
   scoreDisplay.textContent = score;
   riskLevel.textContent = levelText;
-  riskLevel.className = "risk " + riskClass;
+  riskLevel.className = "risk-pill " + riskClass;
   riskMessage.textContent = messageText;
+});
+
+resetBtn.addEventListener("click", function () {
+  burnoutForm.reset();
+  scoreDisplay.textContent = "0";
+  riskLevel.textContent = "Low Risk";
+  riskLevel.className = "risk-pill low";
+  riskMessage.textContent =
+    "Enter your daily wellness information below to calculate your burnout score.";
 });
