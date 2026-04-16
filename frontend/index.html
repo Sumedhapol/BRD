@@ -1,31 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Burnout Risk Dashboard</title>
-    <link rel="stylesheet" href="css/styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Burnout Risk Dashboard</title>
+  <link rel="stylesheet" href="css/styles.css" />
 </head>
-
 <body>
+  <div class="page-container">
+    <header class="hero">
+      <h1>Burnout Risk Dashboard</h1>
+      <p class="subtitle">Track your habits and monitor your academic burnout risk.</p>
+    </header>
 
-    <div class="home-container">
-        <div class="home-box">
-            <h1>Burnout Risk Dashboard</h1>
-            <p class="tagline">
-                Track your habits. Understand your stress. Prevent burnout.
-            </p>
+    <main class="dashboard-container">
+      <section class="score-card">
+        <h2>Your Burnout Risk</h2>
+        <div id="scoreDisplay" class="score">0</div>
+        <div id="riskLevel" class="risk low">Low Risk</div>
+        <p id="riskMessage" class="message">
+          Enter your daily wellness information below to calculate your burnout score.
+        </p>
+      </section>
 
-            <p class="description">
-                This app helps students monitor sleep, stress, study time, and mood to calculate a burnout risk score and visualize trends over time.
-            </p>
+      <section class="form-card">
+        <h2>Daily Wellness Check-In</h2>
+        <form id="burnoutForm">
+          <div class="form-group">
+            <label for="sleep">Hours of Sleep</label>
+            <input type="number" id="sleep" min="0" max="24" step="0.5" placeholder="Example: 5.5" required />
+          </div>
 
-            <div class="buttons">
-                <a href="login.html" class="btn">Login</a>
-                <a href="register.html" class="btn secondary">Register</a>
-            </div>
-        </div>
-    </div>
+          <div class="form-group">
+            <label for="stress">Stress Level (1-10)</label>
+            <input type="number" id="stress" min="1" max="10" placeholder="Example: 8" required />
+          </div>
 
+          <div class="form-group">
+            <label for="study">Study Hours</label>
+            <input type="number" id="study" min="0" max="24" step="0.5" placeholder="Example: 9" required />
+          </div>
+
+          <div class="form-group">
+            <label for="mood">Mood Score (1-10)</label>
+            <input type="number" id="mood" min="1" max="10" placeholder="Example: 3" required />
+          </div>
+
+          <button type="submit">Calculate Burnout Risk</button>
+        </form>
+      </section>
+    </main>
+  </div>
+
+  <script src="js/script.js"></script>
 </body>
 </html>
