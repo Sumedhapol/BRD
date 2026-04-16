@@ -35,10 +35,10 @@
         <div class="score-details">
           <h3>How scoring works</h3>
           <ul>
-            <li>Sleep under 6 hours = +2</li>
-            <li>Stress above 7 = +2</li>
-            <li>Study hours above 8 = +1</li>
-            <li>Mood below 4 = +2</li>
+            <li><strong>Sleep:</strong> Under 6 hours = +2 risk points</li>
+            <li><strong>Stress Level:</strong> Scale from 1 (low stress) to 10 (high stress). Values above 7 add +2 risk points</li>
+            <li><strong>Study Hours:</strong> More than 8 hours = +1 risk point</li>
+            <li><strong>Mood Score:</strong> Scale from 1 (very poor mood) to 10 (very positive mood). Values below 4 add +2 risk points</li>
           </ul>
         </div>
       </div>
@@ -54,7 +54,6 @@
           <div class="form-group">
             <label for="stress">Stress Level (1–10)</label>
             <input type="number" id="stress" min="1" max="10" placeholder="Example: 8" required />
-            <div class="scale-hint">
               <span>Low stress</span>
               <span>High stress</span>
             </div>
@@ -68,7 +67,6 @@
           <div class="form-group">
             <label for="mood">Mood Score (1–10)</label>
             <input type="number" id="mood" min="1" max="10" placeholder="Example: 3" required />
-            <div class="scale-hint">
               <span>Bad mood</span>
               <span>Great mood</span>
             </div>
