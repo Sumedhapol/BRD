@@ -66,12 +66,8 @@ This project is a front-end based web application and does not require any speci
 ---
 
 ## Screenshots (To Be Added)
-<!-- TODO:
-- Login page
-- Dashboard
-- Input form
-- Charts
--->
+### Welcome Page
+![Welcome](Welcome Screen.png)
 
 ---
 
