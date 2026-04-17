@@ -43,21 +43,40 @@ burnoutForm.addEventListener("submit", function (event) {
   let riskClass = "";
 
   if (score <= 2) {
-    levelText = "Low Risk";
-    messageText =
-      "Your current habits suggest a lower burnout risk. Keep tracking your routine and maintaining balance.";
-    riskClass = "low";
-  } else if (score <= 5) {
-    levelText = "Moderate Risk";
-    messageText =
-      "Your entries show some warning signs of burnout. You may want to improve rest, manage stress, and balance your workload.";
-    riskClass = "moderate";
-  } else {
-    levelText = "High Risk";
-    messageText =
-      "Your current habits suggest a high burnout risk. Consider resting more, reducing overload, and reaching out for support if needed.";
-    riskClass = "high";
-  }
+  levelText = "Low Risk";
+  messageText =
+    "Your current habits suggest a lower burnout risk. Keep maintaining a healthy routine.";
+  riskClass = "low";
+
+  alert(
+    "Great job! 🎉\n\n" +
+    "You are currently at low risk of burnout.\n\n" +
+    "Keep up your healthy habits and continue maintaining a good balance between work, rest, and stress."
+  );
+
+} else if (score <= 5) {
+  levelText = "Moderate Risk";
+  messageText =
+    "Your entries show some warning signs of burnout. Consider improving sleep, stress management, or workload balance.";
+  riskClass = "moderate";
+
+} else {
+  levelText = "High Risk";
+  messageText =
+    "Your current habits suggest a high burnout risk. Consider resting more, reducing overload, and seeking support if needed.";
+  riskClass = "high";
+
+  alert(
+    "⚠️ Burnout Risk Warning\n\n" +
+    "Your score indicates a high risk of burnout.\n\n" +
+    "Here are some tips to help reduce your risk:\n" +
+    "• Get at least 6–8 hours of sleep\n" +
+    "• Take breaks during long study sessions\n" +
+    "• Manage stress with relaxation techniques\n" +
+    "• Avoid overloading your schedule\n" +
+    "• Talk to someone if you're feeling overwhelmed"
+  );
+}
 
   scoreDisplay.textContent = score;
   riskLevel.textContent = levelText;
