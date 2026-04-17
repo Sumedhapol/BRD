@@ -56,13 +56,12 @@ The Burnout Score is calculated using a simple point system:
 
 ---
 
-## Installation & Setup (To Be Added)
-<!-- TODO:
-- Clone repo
-- Install dependencies
-- Environment variables setup
-- Run frontend/backend
--->
+## Installation & Setup
+This project is a front-end based web application and does not require any special installation.
+### Steps to Run Locally
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/your-username/your-repo-name.git
 
 ---
 
