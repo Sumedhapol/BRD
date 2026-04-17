@@ -1,19 +1,33 @@
-window.onload = function () {
-  alert(
-    "Welcome to the Burnout Risk Dashboard.\n\n" +
-    "Use this tool to enter your daily sleep, stress level, study hours, and mood score. " +
-    "Once you calculate your result, the dashboard will show your current burnout risk and helpful feedback."
-  );
-};
+function showPopup(message, type) {
+  const popup = document.getElementById("popup");
+  const popupText = document.getElementById("popupText");
+  const popupContent = document.getElementById("popupContent");
 
-function showPopup(message) {
-  document.getElementById("popupText").textContent = message;
-  document.getElementById("popup").classList.remove("hidden");
+  popupText.textContent = message;
+
+  popupContent.className = "popup-content";
+
+  if (type === "low") {
+    popupContent.classList.add("popup-low");
+  } else if (type === "high") {
+    popupContent.classList.add("popup-high");
+  } else {
+    popupContent.classList.add("popup-welcome");
+  }
+
+  popup.classList.remove("hidden");
 }
 
 function closePopup() {
   document.getElementById("popup").classList.add("hidden");
 }
+
+window.onload = function () {
+  showPopup(
+    "Welcome to the Burnout Risk Dashboard.\n\nEnter your daily sleep, stress level, study hours, and mood score to calculate your burnout risk.\n\nThis tool is designed to help you reflect on your habits and recognize early signs of burnout.",
+    "welcome"
+  );
+};
 
 const burnoutForm = document.getElementById("burnoutForm");
 const scoreDisplay = document.getElementById("scoreDisplay");
@@ -30,17 +44,20 @@ burnoutForm.addEventListener("submit", function (event) {
   const mood = parseInt(document.getElementById("mood").value);
 
   if (isNaN(sleep) || isNaN(stress) || isNaN(study) || isNaN(mood)) {
-    alert("Please complete all fields before calculating your burnout risk.");
+    showPopup(
+      "Please complete all fields before calculating your burnout risk.",
+      "welcome"
+    );
     return;
   }
 
   if (stress < 1 || stress > 10) {
-    alert("Stress level must be between 1 and 10.");
+    showPopup("Stress level must be between 1 and 10.", "welcome");
     return;
   }
 
   if (mood < 1 || mood > 10) {
-    alert("Mood score must be between 1 and 10.");
+    showPopup("Mood score must be between 1 and 10.", "welcome");
     return;
   }
 
@@ -71,13 +88,7 @@ burnoutForm.addEventListener("submit", function (event) {
     messageText =
       "Your current habits suggest a lower burnout risk. Keep maintaining a healthy routine.";
     riskClass = "low";
-
-    alert(
-      "Good job.\n\n" +
-      "You are on the right track and currently showing a lower risk of burnout.\n\n" +
-      "Keep maintaining healthy habits with sleep, stress management, and balanced study time."
-    );
-  } else if (score <= 5) {
+  } else if (score === 5) {
     levelText = "Moderate Risk";
     messageText =
       "Your entries show some warning signs of burnout. Consider improving rest, stress management, or workload balance.";
@@ -87,16 +98,6 @@ burnoutForm.addEventListener("submit", function (event) {
     messageText =
       "Your current habits suggest a high burnout risk. Consider resting more, reducing overload, and reaching out for support if needed.";
     riskClass = "high";
-
-    alert(
-      "You may be at risk of burnout.\n\n" +
-      "Here are some ways to lower your risk:\n" +
-      "• Try to get more sleep each night\n" +
-      "• Take breaks during long study sessions\n" +
-      "• Spread work out over time instead of cramming\n" +
-      "• Use stress-relief habits like walking, stretching, or deep breathing\n" +
-      "• Reach out for support if you are feeling overwhelmed"
-    );
   }
 
   scoreDisplay.textContent = score;
@@ -104,18 +105,20 @@ burnoutForm.addEventListener("submit", function (event) {
   riskLevel.className = "risk-pill " + riskClass;
   riskMessage.textContent = messageText;
 
-  /* NOW show popup AFTER UI updates */
-setTimeout(() => {
-  if (score <= 4) {
-    showPopup(
-      "Great job! 🎉\n\nYou're on the right track and maintaining a healthy balance.\n\nKeep it up!"
-    );
-  } else if (score >= 6) {
-    showPopup(
-      "⚠️ Burnout Risk Warning\n\nYou may be at risk of burnout.\n\nTry:\n• Getting more sleep\n• Taking study breaks\n• Reducing workload\n• Managing stress\n• Reaching out for support"
-    );
-  }
-}, 100);
+  setTimeout(() => {
+    if (score <= 4) {
+      showPopup(
+        "Great job.\n\nYou are on the right track and currently showing a lower risk of burnout.\n\nKeep maintaining healthy habits with sleep, stress management, and balanced study time.",
+        "low"
+      );
+    } else if (score >= 6) {
+      showPopup(
+        "You may be at risk of burnout.\n\nHere are some ways to lower your risk:\n• Try to get more sleep each night\n• Take breaks during long study sessions\n• Spread work out over time instead of cramming\n• Use stress-relief habits like walking, stretching, or deep breathing\n• Reach out for support if you are feeling overwhelmed",
+        "high"
+      );
+    }
+  }, 100);
+});
 
 resetBtn.addEventListener("click", function () {
   burnoutForm.reset();
