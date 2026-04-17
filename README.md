@@ -65,7 +65,7 @@ This project is a front-end based web application and does not require any speci
 
 ---
 
-## Screenshots (To Be Added)
+## Screenshots
 ### Welcome Page
 ![Welcome](Welcome.png)
 
@@ -80,7 +80,7 @@ This project is a front-end based web application and does not require any speci
 
 ---
 
-## Demo (To Be Added)
+## Demo video (To Be Added)
 <!-- TODO:
 - 1–2 minute demo video link
 -->
