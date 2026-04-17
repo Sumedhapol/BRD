@@ -94,7 +94,19 @@ burnoutForm.addEventListener("submit", function (event) {
   riskLevel.textContent = levelText;
   riskLevel.className = "risk-pill " + riskClass;
   riskMessage.textContent = messageText;
-});
+
+  /* NOW show popup AFTER UI updates */
+setTimeout(() => {
+  if (score <= 4) {
+    showPopup(
+      "Great job! 🎉\n\nYou're on the right track and maintaining a healthy balance.\n\nKeep it up!"
+    );
+  } else if (score >= 6) {
+    showPopup(
+      "⚠️ Burnout Risk Warning\n\nYou may be at risk of burnout.\n\nTry:\n• Getting more sleep\n• Taking study breaks\n• Reducing workload\n• Managing stress\n• Reaching out for support"
+    );
+  }
+}, 100);
 
 resetBtn.addEventListener("click", function () {
   burnoutForm.reset();
