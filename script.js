@@ -6,6 +6,15 @@ window.onload = function () {
   );
 };
 
+function showPopup(message) {
+  document.getElementById("popupText").textContent = message;
+  document.getElementById("popup").classList.remove("hidden");
+}
+
+function closePopup() {
+  document.getElementById("popup").classList.add("hidden");
+}
+
 const burnoutForm = document.getElementById("burnoutForm");
 const scoreDisplay = document.getElementById("scoreDisplay");
 const riskLevel = document.getElementById("riskLevel");
