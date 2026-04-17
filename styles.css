@@ -280,3 +280,107 @@ input:focus {
 .popup-content button:hover {
   background: #356c9b;
 }
+
+/* Popup overlay */
+.popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(30, 60, 90, 0.45);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.hidden {
+  display: none;
+}
+
+/* Popup box */
+.popup-content {
+  width: 360px;
+  max-width: 90%;
+  padding: 28px 24px;
+  border-radius: 24px;
+  text-align: center;
+  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.2);
+  animation: popIn 0.28s ease;
+  border: 2px solid transparent;
+}
+
+.popup-content p {
+  white-space: pre-line;
+  line-height: 1.6;
+  font-size: 1rem;
+  margin: 0;
+}
+
+.popup-content button {
+  margin-top: 18px;
+  padding: 11px 22px;
+  border: none;
+  border-radius: 999px;
+  font-weight: bold;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: transform 0.15s ease, opacity 0.2s ease;
+}
+
+.popup-content button:hover {
+  transform: translateY(-1px);
+  opacity: 0.95;
+}
+
+.popup-content button:active {
+  transform: translateY(1px);
+}
+
+/* Welcome popup */
+.popup-welcome {
+  background: #f4f9fd;
+  border-color: #bfd8ea;
+  color: #264b6d;
+}
+
+.popup-welcome button {
+  background: #4c88b8;
+  color: white;
+}
+
+/* Low risk popup */
+.popup-low {
+  background: #eefaf2;
+  border-color: #b9e4c9;
+  color: #1d6b48;
+}
+
+.popup-low button {
+  background: #2f8f5b;
+  color: white;
+}
+
+/* High risk popup */
+.popup-high {
+  background: #fff1f3;
+  border-color: #f0b7c0;
+  color: #8b2c3b;
+}
+
+.popup-high button {
+  background: #c94f63;
+  color: white;
+}
+
+@keyframes popIn {
+  from {
+    transform: scale(0.86);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
