@@ -1,3 +1,11 @@
+window.onload = function () {
+  alert(
+    "Welcome to the Burnout Risk Dashboard 👋\n\n" +
+    "Track your daily habits and understand your burnout risk.\n\n" +
+    "Enter your sleep, stress, study hours, and mood below, then click 'Calculate Burnout Risk' to see your results."
+  );
+};
+
 const burnoutForm = document.getElementById("burnoutForm");
 const scoreDisplay = document.getElementById("scoreDisplay");
 const riskLevel = document.getElementById("riskLevel");
