@@ -67,7 +67,16 @@ This project is a front-end based web application and does not require any speci
 
 ## Screenshots (To Be Added)
 ### Welcome Page
-![Welcome](Welcome Screen.png)
+![Welcome](Welcome.png)
+
+### Initial Dashboard
+![Dashboard](dashboard.png)
+
+### Low Risk Result
+![Low Risk](low-risk.png)
+
+### High Risk Result
+![High Risk](high-risk.png)
 
 ---
 
