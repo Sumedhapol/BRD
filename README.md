@@ -83,8 +83,8 @@ This project is a front-end based web application and does not require any speci
 ## Demo video
 <!-- TODO:
 - 
+<video src="(https://github.com/user-attachments/assets/6516637e-b4c5-4c67-a7a2-ddd2922476e4)" width="100%" controls></video>
 
-https://github.com/user-attachments/assets/6516637e-b4c5-4c67-a7a2-ddd2922476e4
 
 
 -->
