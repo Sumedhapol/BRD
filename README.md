@@ -80,9 +80,13 @@ This project is a front-end based web application and does not require any speci
 
 ---
 
-## Demo video (To Be Added)
+## Demo video
 <!-- TODO:
-- 1–2 minute demo video link
+- 
+
+https://github.com/user-attachments/assets/6516637e-b4c5-4c67-a7a2-ddd2922476e4
+
+
 -->
 
 ---
