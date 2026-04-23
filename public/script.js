@@ -71,6 +71,17 @@ function showApp(name) {
   document.getElementById("authSection").classList.add("hidden");
   document.getElementById("appSection").classList.remove("hidden");
   document.getElementById("welcomeUser").textContent = `Welcome, ${name}`;
+
+  document.getElementById("loginEmail").value = "";
+  document.getElementById("loginPassword").value = "";
+  document.getElementById("registerName").value = "";
+  document.getElementById("registerEmail").value = "";
+  document.getElementById("registerPassword").value = "";
+
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
 }
 
 async function saveEntry(event) {
