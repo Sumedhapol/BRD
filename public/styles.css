@@ -10,7 +10,7 @@ body {
 }
 
 .hidden {
-  display: none;
+  display: none !important;
 }
 
 .top-ribbon {
@@ -61,8 +61,7 @@ body {
 
 .auth-card button,
 .primary-btn,
-.secondary-btn,
-.logout-btn {
+.secondary-btn {
   width: 100%;
   padding: 12px;
   border: none;
@@ -73,8 +72,18 @@ body {
 }
 
 .auth-card button,
-.primary-btn,
+.primary-btn {
+  background: #4c88b8;
+  color: white;
+}
+
 .logout-btn {
+  width: auto;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 10px;
+  font-weight: bold;
+  cursor: pointer;
   background: #4c88b8;
   color: white;
 }
