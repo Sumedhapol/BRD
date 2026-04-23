@@ -21,15 +21,21 @@ This app focuses specifically on academic burnout, unlike genreal wellness apps,
 - Tracking academic-related habits
 - Visualizing trens over time
 
+This project demonstrates full-stack development using a Node.js backend, MongoDB database, and a responsive front-end interface.
+
 ------
 
 ## Core MVP Features
-- User authentication (signup/login)
-- Daily wellness data input form
-- Burnout Index calculation
-- Dashboard displaying risk level (Low / Moderate / High)
-- Weekly trend visualization (charts)
-- Responsive design (mobile + desktop)
+- User authentication (Register & Login)
+- Secure password storage using hashing
+- Daily wellness input form
+- Burnout risk score calculation
+- Dynamic risk level feedback (Low / Moderate / High)
+- Data persistence using MongoDB
+- History tracking of past entries
+- Weekly burnout trend graph (Chart.js)
+- Responsive UI design for different screen sizes
+- Logout functionality
 
 ------
 
@@ -48,21 +54,57 @@ The Burnout Score is calculated using a simple point system:
 
 ---
 
-## Tech Stack (Planned)
-- Frontend: React + Tailwind CSS
-- Backend: Node.js + Express
-- Database: MongoDB
-- Charts: Chart.js
+## Tech Stack 
+Frontend
+- HTML
+- CSS
+- JavaScript
+
+Backend
+- Node.js
+- Express.js
+
+Database
+- MongoDB Atlas
+
+Other Tools
+- Chart.js (for graph visualization)
+- JWT (authentication)
+- bcrypt (password hashing)
 
 ---
 
 ## Installation & Setup
 This project is a front-end based web application and does not require any special installation.
-### Steps to Run Locally
-1. Clone the repository:
-   ```bash
+Follow these steps to run the Burnout Risk Dashboard locally:
+1. Clone or Download the Repository
    git clone https://github.com/your-username/your-repo-name.git
+   cd your-repo-name
+Or download the ZIP from GitHub and open the folder in VS Code.
 
+2. Install Dependencies
+In the project terminal, run:
+   npm install
+
+3. Set Up MongoDB Atlas
+Go to https://www.mongodb.com/atlas
+Create a free account
+Create a cluster (Free tier)
+Create a database user (username + password)
+Allow access from anywhere (Network Access)
+Click Connect → Drivers and copy your connection string
+
+4. Rewrite the .env file (make sure to add your password to the string)
+   MONGO_URI=your_mongodb_connection_string
+   JWT_SECRET=your_secret_key
+   PORT=3000
+
+5. Run the Application
+Start the server:
+   node server.js
+
+6. Open in Browser
+   http://localhost:3000
 ---
 
 ## Screenshots
@@ -86,11 +128,12 @@ https://github.com/user-attachments/assets/6516637e-b4c5-4c67-a7a2-ddd2922476e4
 ---
 
 ## Future Development
+- Mobile-friendly UI improvements
+- Push notifications for high burnout risk
 - AI-based burnout prediction
-- Push notifications
 - Personalized recommendations
-- Integration with campus counseling
-- Admin dashboard (anonymized data trends)
+- Integration with campus wellness services
+- Multi-day analytics dashboard
 
 ---
 
