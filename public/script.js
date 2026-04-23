@@ -1,41 +1,79 @@
-function showPopup(message, type) {
-  const popup = document.getElementById("popup");
-  const popupText = document.getElementById("popupText");
-  const popupContent = document.getElementById("popupContent");
+const API_BASE = "/api";
+let chartInstance = null;
 
-  popupText.textContent = message;
-
-  popupContent.className = "popup-content";
-
-  if (type === "low") {
-    popupContent.classList.add("popup-low");
-  } else if (type === "high") {
-    popupContent.classList.add("popup-high");
-  } else {
-    popupContent.classList.add("popup-welcome");
-  }
-
-  popup.classList.remove("hidden");
-}
-
-function closePopup() {
-  document.getElementById("popup").classList.add("hidden");
-}
+document.getElementById("burnoutForm").addEventListener("submit", saveEntry);
 
 window.onload = function () {
-  showPopup(
-    "Welcome to the Burnout Risk Dashboard.\n\nEnter your daily sleep, stress level, study hours, and mood score to calculate your burnout risk.\n\nThis tool is designed to help you reflect on your habits and recognize early signs of burnout.",
-    "welcome"
-  );
+  const token = localStorage.getItem("token");
+  const name = localStorage.getItem("name");
+
+  if (token) {
+    showApp(name);
+    loadEntries();
+    loadWeeklyChart();
+  }
 };
 
-const burnoutForm = document.getElementById("burnoutForm");
-const scoreDisplay = document.getElementById("scoreDisplay");
-const riskLevel = document.getElementById("riskLevel");
-const riskMessage = document.getElementById("riskMessage");
-const resetBtn = document.getElementById("resetBtn");
+async function register() {
+  const name = document.getElementById("registerName").value;
+  const email = document.getElementById("registerEmail").value;
+  const password = document.getElementById("registerPassword").value;
 
-burnoutForm.addEventListener("submit", function (event) {
+  const res = await fetch(`${API_BASE}/auth/register`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ name, email, password })
+  });
+
+  const data = await res.json();
+
+  if (!res.ok) {
+    return alert(data.message);
+  }
+
+  localStorage.setItem("token", data.token);
+  localStorage.setItem("name", data.user.name);
+  showApp(data.user.name);
+  loadEntries();
+  loadWeeklyChart();
+}
+
+async function login() {
+  const email = document.getElementById("loginEmail").value;
+  const password = document.getElementById("loginPassword").value;
+
+  const res = await fetch(`${API_BASE}/auth/login`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ email, password })
+  });
+
+  const data = await res.json();
+
+  if (!res.ok) {
+    return alert(data.message);
+  }
+
+  localStorage.setItem("token", data.token);
+  localStorage.setItem("name", data.user.name);
+  showApp(data.user.name);
+  loadEntries();
+  loadWeeklyChart();
+}
+
+function logout() {
+  localStorage.removeItem("token");
+  localStorage.removeItem("name");
+  location.reload();
+}
+
+function showApp(name) {
+  document.getElementById("authSection").classList.add("hidden");
+  document.getElementById("appSection").classList.remove("hidden");
+  document.getElementById("welcomeUser").textContent = `Welcome, ${name}`;
+}
+
+async function saveEntry(event) {
   event.preventDefault();
 
   const sleep = parseFloat(document.getElementById("sleep").value);
@@ -43,88 +81,111 @@ burnoutForm.addEventListener("submit", function (event) {
   const study = parseFloat(document.getElementById("study").value);
   const mood = parseInt(document.getElementById("mood").value);
 
-  if (isNaN(sleep) || isNaN(stress) || isNaN(study) || isNaN(mood)) {
-    showPopup(
-      "Please complete all fields before calculating your burnout risk.",
-      "welcome"
-    );
-    return;
+  const token = localStorage.getItem("token");
+
+  const res = await fetch(`${API_BASE}/entries`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`
+    },
+    body: JSON.stringify({ sleep, stress, study, mood })
+  });
+
+  const data = await res.json();
+
+  if (!res.ok) {
+    return alert(data.message);
   }
 
-  if (stress < 1 || stress > 10) {
-    showPopup("Stress level must be between 1 and 10.", "welcome");
-    return;
+  document.getElementById("scoreDisplay").textContent = data.score;
+  document.getElementById("riskLevel").textContent = data.riskLevel;
+  document.getElementById("riskLevel").className =
+    "risk-pill " +
+    (data.riskLevel === "Low Risk"
+      ? "low"
+      : data.riskLevel === "Moderate Risk"
+      ? "moderate"
+      : "high");
+
+  document.getElementById("riskMessage").textContent =
+    data.riskLevel === "Low Risk"
+      ? "You are on the right track."
+      : data.riskLevel === "Moderate Risk"
+      ? "You may be showing some early warning signs of burnout."
+      : "You may be at high risk of burnout. Try to rest, reduce overload, and seek support.";
+
+  document.getElementById("burnoutForm").reset();
+  loadEntries();
+  loadWeeklyChart();
+}
+
+async function loadEntries() {
+  const token = localStorage.getItem("token");
+  const res = await fetch(`${API_BASE}/entries`, {
+    headers: { Authorization: `Bearer ${token}` }
+  });
+
+  const entries = await res.json();
+  const table = document.getElementById("historyTable");
+  table.innerHTML = "";
+
+  entries.forEach((entry) => {
+    const row = document.createElement("tr");
+    row.innerHTML = `
+      <td>${new Date(entry.createdAt).toLocaleDateString()}</td>
+      <td>${entry.score}</td>
+      <td>${entry.riskLevel}</td>
+    `;
+    table.appendChild(row);
+  });
+}
+
+async function loadWeeklyChart() {
+  const token = localStorage.getItem("token");
+  const res = await fetch(`${API_BASE}/entries/weekly`, {
+    headers: { Authorization: `Bearer ${token}` }
+  });
+
+  const entries = await res.json();
+
+  const labels = entries.map((entry) =>
+    new Date(entry.createdAt).toLocaleDateString()
+  );
+  const scores = entries.map((entry) => entry.score);
+
+  const ctx = document.getElementById("riskChart").getContext("2d");
+
+  if (chartInstance) {
+    chartInstance.destroy();
   }
 
-  if (mood < 1 || mood > 10) {
-    showPopup("Mood score must be between 1 and 10.", "welcome");
-    return;
-  }
-
-  let score = 0;
-
-  if (sleep < 6) {
-    score += 2;
-  }
-
-  if (stress > 7) {
-    score += 2;
-  }
-
-  if (study > 8) {
-    score += 1;
-  }
-
-  if (mood < 4) {
-    score += 2;
-  }
-
-  let levelText = "";
-  let messageText = "";
-  let riskClass = "";
-
-  if (score <= 4) {
-    levelText = "Low Risk";
-    messageText =
-      "Your current habits suggest a lower burnout risk. Keep maintaining a healthy routine.";
-    riskClass = "low";
-  } else if (score === 5) {
-    levelText = "Moderate Risk";
-    messageText =
-      "Your entries show some warning signs of burnout. Consider improving rest, stress management, or workload balance.";
-    riskClass = "moderate";
-  } else {
-    levelText = "High Risk";
-    messageText =
-      "Your current habits suggest a high burnout risk. Consider resting more, reducing overload, and reaching out for support if needed.";
-    riskClass = "high";
-  }
-
-  scoreDisplay.textContent = score;
-  riskLevel.textContent = levelText;
-  riskLevel.className = "risk-pill " + riskClass;
-  riskMessage.textContent = messageText;
-
-  setTimeout(() => {
-    if (score <= 4) {
-      showPopup(
-        "Great job.\n\nYou are on the right track and currently showing a lower risk of burnout.\n\nKeep maintaining healthy habits with sleep, stress management, and balanced study time.",
-        "low"
-      );
-    } else if (score >= 6) {
-      showPopup(
-        "You may be at risk of burnout.\n\nHere are some ways to lower your risk:\n• Try to get more sleep each night\n• Take breaks during long study sessions\n• Spread work out over time instead of cramming\n• Use stress-relief habits like walking, stretching, or deep breathing\n• Reach out for support if you are feeling overwhelmed",
-        "high"
-      );
+  chartInstance = new Chart(ctx, {
+    type: "line",
+    data: {
+      labels,
+      datasets: [
+        {
+          label: "Burnout Score",
+          data: scores,
+          borderWidth: 2,
+          tension: 0.3
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: {
+          display: true
+        }
+      },
+      scales: {
+        y: {
+          beginAtZero: true,
+          suggestedMax: 7
+        }
+      }
     }
-  }, 100);
-});
-
-resetBtn.addEventListener("click", function () {
-  burnoutForm.reset();
-  scoreDisplay.textContent = "0";
-  riskLevel.textContent = "Low Risk";
-  riskLevel.className = "risk-pill low";
-  riskMessage.textContent =
-    "Enter your daily wellness information below to calculate your burnout score.";
-});
+  });
+}
