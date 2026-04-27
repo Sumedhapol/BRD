@@ -108,6 +108,9 @@ Start the server:
 ---
 
 ## Screenshots
+### Login Page
+![Login](login.png)
+
 ### Welcome Page
 ![Welcome](Welcome.png)
 
