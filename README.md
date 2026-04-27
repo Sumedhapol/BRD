@@ -109,19 +109,19 @@ Start the server:
 
 ## Screenshots
 ### Login Page
-![Login](login.png)
+![Login](images/login.png)
 
 ### Welcome Page
-![Welcome](Welcome.png)
+![Welcome](images/Welcome.png)
 
 ### Initial Dashboard
-![Dashboard](dashboard.png)
+![Dashboard](images/dashboard.png)
 
 ### Low Risk Result
-![Low Risk](low-risk.png)
+![Low Risk](images/low-risk.png)
 
 ### High Risk Result
-![High Risk](high-risk.png)
+![High Risk](images/high-risk.png)
 
 ---
 
